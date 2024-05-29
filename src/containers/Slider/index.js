@@ -13,7 +13,7 @@ const Slider = () => {
   const [index, setIndex] = useState(nbImages-1);
   const nextCard = () => {
     setTimeout(
-      () => setIndex(index > 0 ? index - 1 : byDateDesc.length - 1),
+      () => setIndex(index > 0 ? index - 1 : nbImages - 1),
       5000
     );
   };
