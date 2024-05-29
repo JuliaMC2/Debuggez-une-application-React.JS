@@ -130,7 +130,7 @@ return <>
           title={lastEvent?.title}
           date={new Date(lastEvent?.date)}
           small
-          label="boom"
+          label={lastEvent?.type}
         />
       </div>
       <div className="col contact">
