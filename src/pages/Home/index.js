@@ -23,6 +23,23 @@ const Page = () => {
         return currentDate > latestDate ? current : latest;
       })
     : null;
+  let lastImageSrc=lastEvent?.cover
+  let lastTitle=lastEvent?.title
+  let lastDate=new Date(lastEvent?.date)
+  let lastLabel=lastEvent?.type
+
+  if (lastImageSrc === 'undefined')
+    lastImageSrc=''
+  if (lastTitle === 'undefined')
+    lastTitle='title'
+  if (lastDate === 'undefined')
+    lastDate=''
+  if (lastLabel === 'undefined')
+    lastLabel='boom'
+
+  // eslint-disable-next-line prefer-template
+console.log('lastImageSrc:'+lastImageSrc+'\nlastTitle:'+lastTitle+'\nlastDate:'+lastDate+'\nlastLabel:'+lastLabel)
+
 return <>
     <header>
       <Menu />
@@ -126,11 +143,11 @@ return <>
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
         <EventCard
-          imageSrc={lastEvent?.cover}
-          title={lastEvent?.title}
-          date={new Date(lastEvent?.date)}
+          imageSrc={lastImageSrc}
+          title={lastTitle}
+          date={lastDate}
+          label={lastLabel}
           small
-          label={lastEvent?.type}
         />
       </div>
       <div className="col contact">
