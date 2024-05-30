@@ -7,13 +7,16 @@ import "./style.scss";
 const Slider = () => {
   const { data } = useData();
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
-    new Date(evtA.date) > new Date(evtB.date) ? -1 : 0
+    new Date(evtA.date) < new Date(evtB.date) ? 1 : 0
   );
   const nbImages = data?.focus.length;
-  const [index, setIndex] = useState(nbImages-1);
+  const [index, setIndex] = useState(0);
+  // eslint-disable-next-line prefer-template
+  const message = index+'/'+nbImages
+  console.log(message)
   const nextCard = () => {
     setTimeout(
-      () => setIndex(index > 0 ? index - 1 : nbImages - 1),
+      () => setIndex(index >= nbImages - 1 ? 0 : index + 1),
       5000
     );
   };
