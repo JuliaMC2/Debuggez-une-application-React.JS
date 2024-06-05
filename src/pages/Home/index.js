@@ -23,22 +23,20 @@ const Page = () => {
         return currentDate > latestDate ? current : latest;
       })
     : null;
-  let lastImageSrc=lastEvent?.cover
-  let lastTitle=lastEvent?.title
-  let lastDate=new Date(lastEvent?.date)
-  let lastLabel=lastEvent?.type
+  let lastImageSrc='dummy_src'
+  let lastTitle='dummy_title'
+  let lastDate=new Date()
+  let lastLabel='boom'
 
-  if (lastImageSrc === 'undefined')
-    lastImageSrc=''
-  if (lastTitle === 'undefined')
-    lastTitle='title'
-  if (lastDate === 'undefined')
-    lastDate=''
-  if (lastLabel === 'undefined')
-    lastLabel='boom'
+  if (lastEvent != null) {
+    lastImageSrc=lastEvent?.cover
+    lastTitle=lastEvent?.title
+    lastDate=new Date(lastEvent?.date)
+    lastLabel=lastEvent?.type
+    }
 
   // eslint-disable-next-line prefer-template
-console.log('lastImageSrc:'+lastImageSrc+'\nlastTitle:'+lastTitle+'\nlastDate:'+lastDate+'\nlastLabel:'+lastLabel)
+console.log('lastEvent:'+lastEvent+'\nlastImageSrc:'+lastImageSrc+'\nlastTitle:'+lastTitle+'\nlastDate:'+lastDate+'\nlastLabel:'+lastLabel)
 
 return <>
     <header>
