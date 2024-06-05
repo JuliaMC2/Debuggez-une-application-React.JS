@@ -11,9 +11,6 @@ const Slider = () => {
   );
   const nbImages = data?.focus.length;
   const [index, setIndex] = useState(0);
-  // eslint-disable-next-line prefer-template
-  const message = index+'/'+nbImages
-  console.log(message)
   const nextCard = () => {
     setTimeout(
       () => setIndex(index >= nbImages - 1 ? 0 : index + 1),
@@ -26,9 +23,8 @@ const Slider = () => {
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
-        <>
+        <div key={event.title}>
           <div
-            key={event.title}
             className={`SlideCard SlideCard--${
               index === idx ? "display" : "hide"
             }`}
@@ -56,7 +52,7 @@ const Slider = () => {
               ))}
             </div>
           </div>
-        </>
+        </div>
       ))}
     </div>
   );

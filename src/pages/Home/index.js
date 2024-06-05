@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Menu from "../../containers/Menu";
 import ServiceCard from "../../components/ServiceCard";
 import EventCard from "../../components/EventCard";
@@ -13,30 +14,32 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const {data} = useData()
-  const lastEvent =
-  data && data.events && data.events.length > 0
-    ? data.events.reduce((latest, current) => {
-        const latestDate = new Date(latest.date);
-        const currentDate = new Date(current.date);
 
-        return currentDate > latestDate ? current : latest;
-      })
-    : null;
-  let lastImageSrc='dummy_src'
-  let lastTitle='dummy_title'
-  let lastDate=new Date()
-  let lastLabel='boom'
+  const { data } = useData();
+  const [lastEvent, setLastEvent] = useState("")
+  const [lastEventImageSrc, setImageSrc] = useState("")
+  const [lastEventTitle, setTitle] = useState("")
+  const [lastEventDate, setDate] = useState("")
+  const [lastEventType, setType] = useState("")
 
-  if (lastEvent != null) {
-    lastImageSrc=lastEvent?.cover
-    lastTitle=lastEvent?.title
-    lastDate=new Date(lastEvent?.date)
-    lastLabel=lastEvent?.type
+  useEffect(() => {
+    if (data) {
+      const lastEventData =  data && data.events && data.events.length > 0
+      ? data.events.reduce((latest, current) => {
+          const latestDate = new Date(latest.date);
+          const currentDate = new Date(current.date);
+  
+          return currentDate > latestDate ? current : latest;
+        })
+      : null;
+      setLastEvent(lastEventData)
+      setDate(lastEventData.date)
+      setImageSrc(lastEventData.cover)
+      setTitle(lastEventData.title)
+      setType(lastEventData.type)
+
     }
-
-  // eslint-disable-next-line prefer-template
-console.log('lastEvent:'+lastEvent+'\nlastImageSrc:'+lastImageSrc+'\nlastTitle:'+lastTitle+'\nlastDate:'+lastDate+'\nlastLabel:'+lastLabel)
+  }, [data, lastEvent]);
 
 return <>
     <header>
@@ -141,10 +144,10 @@ return <>
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
         <EventCard
-          imageSrc={lastImageSrc}
-          title={lastTitle}
-          date={lastDate}
-          label={lastLabel}
+          imageSrc={lastEventImageSrc}
+          title={lastEventTitle}
+          date={new Date(lastEventDate)}
+          label={lastEventType}
           small
         />
       </div>
